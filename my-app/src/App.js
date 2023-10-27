@@ -10,13 +10,14 @@ import Logged from './pages/logged';
 
 
 function App() {
+
   return (
     <BrowserRouter>
     <Header />     
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/home" element={<Home />}/>
-        <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={<Login />}/>    
         <Route path="/logged" element={<Logged/>}/>
         <Route path="*" element={<Home />}/>
       </Routes>

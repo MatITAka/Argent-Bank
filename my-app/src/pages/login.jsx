@@ -1,9 +1,32 @@
-import { NavLink } from "react-router-dom";
+import React, { useState} from 'react';
+import { useDispatch} from "react-redux";
+import { fetchUser } from "../reducers/user.connection";
+import { useNavigate } from "react-router-dom";
 
 function Login () {
-    return (
+    
+  const [email, setEmail] = useState ('');
+  const [password, setPassword] = useState ('');
 
-    <main className="main bg-dark">
+  const dispatch = useDispatch ();
+  const navigate = useNavigate();
+
+  const connect = () => {
+    if (email=== '' || password === '') { return}
+
+    dispatch(fetchUser({email , password }))
+    .then ((response)=> {
+      console.log(response.payload.token)
+      navigate("/logged");
+    })
+
+    .catch((error)=> {
+    
+    })
+
+  }
+  return (
+  <main className="main bg-dark">
 
 
       <section className="sign-in-content">
@@ -18,14 +41,14 @@ function Login () {
 
           <div className="input-wrapper">
             <label htmlFor="username"/>Username
-          <input type="text" id="username" required/>
+          <input type="text" id="username" required onChange={(e)=> setEmail(e.target.value)}/>
             
           </div>
 
 
           <div className="input-wrapper">
             <label htmlFor="password"/>Password
-            <input type="password" id="password" required/>
+            <input type="password" id="password" required onChange={(e) => setPassword(e.target.value)}/>
           </div>
 
 
@@ -33,10 +56,9 @@ function Login () {
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               />Remember me
           </div>
-
-
           
-          <NavLink to="/logged" className="sign-in-button" required>Sign In</NavLink>
+          <button type='button' onClick= {()=> connect()} className="sign-in-button">Sign In</button>
+
         </form>
       </section>
     </main>
