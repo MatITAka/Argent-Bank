@@ -21,7 +21,6 @@ export const getUser = createAsyncThunk (
       },
     }
     );
-    console.log (data.body)
     return data.body;
     
   }
@@ -53,12 +52,13 @@ const usersSlice = createSlice ({
         state.token= action.payload.token;
         localStorage.setItem('token',action.payload.token);//stockage du token dans le localStorage
         state.isLoggedIn =true;
+        getUser();
         
       })
 
       builder.addCase(getUser.fulfilled, (state, action) => {
        
-        state.currentUser = action.payload.body;
+        state.currentUser = action.payload;
         
       });
     

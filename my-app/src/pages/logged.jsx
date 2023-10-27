@@ -1,8 +1,9 @@
 import { userAccount } from "../data/userAccount";
 import  BankAccountFeature from "../components/bankUserFeatures";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../reducers/user.connection";
 
 
 
@@ -10,13 +11,19 @@ import { useNavigate } from "react-router-dom";
 function Logged (){
 
   let users = useSelector((state)=> state.usersReducer.currentUser);
+  let isLoggedIn = useSelector((state)=> state.usersReducer.isLoggedIn);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   useEffect(() => {
-    if (!localStorage.getItem('token')) {
+    if (!isLoggedIn) {
       navigate('/');
     }
-  }, [navigate]);
+
+    else {
+      dispatch(getUser());
+    }
+  }, [navigate,dispatch,isLoggedIn]);
 
 
 
