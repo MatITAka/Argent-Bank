@@ -6,6 +6,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Login from './pages/login';
 import Logged from './pages/logged';
+import Modal from './components/modal';
 
 
 

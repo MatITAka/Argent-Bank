@@ -3,7 +3,10 @@ import  BankAccountFeature from "../components/bankUserFeatures";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser } from "../reducers/user.connection";
+import { getUser, setUser } from "../reducers/user.connection";
+import { useState } from "react";
+import Modal from "../components/modal";
+
 
 
 
@@ -32,7 +35,7 @@ return(
     <main className="main bg-dark">
     <div className="header">
       <h1>Welcome back<br /> {users.firstName} {users.lastName} !</h1>
-      <button className="edit-button">Edit Name</button>
+      <Modal />
     </div>
     <h2 className="sr-only">Accounts</h2>
           {

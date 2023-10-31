@@ -14,8 +14,7 @@ function Header(){
  const isLoggedIn = useSelector((state)=> state.usersReducer.isLoggedIn);
  let userName = useSelector((state)=> state.usersReducer.currentUser.userName);
 
-
-return(
+  return(
 
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to="/home">
@@ -33,7 +32,7 @@ return(
       { isLoggedIn ? ( 
          <NavLink className="main-nav-item"  to="/">
          <i className="fa fa-user-circle"></i>
-         <span>{userName}</span>
+         <span> {userName}</span>
          
          <span onClick={() => dispatch(logout()) }> Sign Out</span>
          
@@ -52,6 +51,6 @@ return(
 
 
     </nav>
-);
+  );
 }
 export default Header
