@@ -12,7 +12,11 @@ function Login () {
   const navigate = useNavigate();
 
   const connect = () => {
-    if (email=== '' || password === '') { return}
+    if (email=== '' || password === '') { 
+      
+      alert("Please fill in both email and password fields.");
+      
+      return;}
 
     dispatch(fetchUser({email , password }))
     .then ((response)=> {
@@ -21,7 +25,8 @@ function Login () {
     })
 
     .catch((error)=> {
-    
+        alert('wrong e-mail or password')
+        
     })
 
   }

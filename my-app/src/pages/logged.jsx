@@ -3,8 +3,7 @@ import  BankAccountFeature from "../components/bankUserFeatures";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUser, setUser } from "../reducers/user.connection";
-import { useState } from "react";
+import { getUser} from "../reducers/user.connection";
 import Modal from "../components/modal";
 
 

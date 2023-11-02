@@ -28,9 +28,9 @@ export const getUser = createAsyncThunk (
 
 export const setUser = createAsyncThunk (
   'userSlice/setUser',
-  async () => {
+  async (NewuserName) => {
     const token = localStorage.getItem('token') || null 
-    const {data} = await axios.put ("http://localhost:3001/api/v1/user/profile", {token},
+    const {data} = await axios.put ("http://localhost:3001/api/v1/user/profile", NewuserName,
     { headers : {
         'Content-Type' : 'application/json',
         Authorization : `Bearer ${token}`,
@@ -79,8 +79,7 @@ const usersSlice = createSlice ({
       });
 
       builder.addCase (setUser.fulfilled, (state,action) => {
-        state.currentUser.userName = action.payload
-        setUser();
+        state.currentUser = action.payload
       })
     
 

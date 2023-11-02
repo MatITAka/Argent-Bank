@@ -8,17 +8,18 @@ function Modal() {
     const dispatch = useDispatch();
     let users = useSelector((state)=> state.usersReducer.currentUser);
     const [modal, setModal] = useState(false);
-    const [userName, setUserName] = useState(users.userName);
+    const [userNameValue, setUserNameValue] = useState(users.userName);
     
     const toggleModal = () => {
         setModal(!modal);
     }
 
-    const userNameChange = async (e) => {
-        e.preventDefault();
-        dispatch(setUser(userName))
+    const updateUser = () => {
+        dispatch(setUser( {userName : userNameValue}));
         toggleModal();
     }
+
+
 
     return (
         <>
@@ -29,15 +30,14 @@ function Modal() {
                 <div className="modal__background__content">
                 <button className="close-modal" onClick={toggleModal}> Close </button>
 
-                    {/* Add new userName with a form */}
                     <form >
                         <div className="input-wrapper">
-                            <label htmlFor="username">New Username :</label>
+                            <label htmlFor="username">Username :</label>
                             <input 
                             type="text" 
                             id="username" 
-                            value={userName}
-                            onChange={(e) => userNameChange(e.target.value)}
+                            defaultValue={users.userName}
+                            onChange={(e) => setUserNameValue(e.target.value)}
                             />
                             <label htmlFor="firstName">Prénom:</label>
                             <input type="text" id="firstName" value={users.firstName} readOnly  />
@@ -46,7 +46,7 @@ function Modal() {
                             <input type="text" id="lastName" value={users.lastName} readOnly   />
                         </div>
                         <button 
-                            className="sign-in-button" id="connect" type="submit" 
+                            className="sign-in-button" id="connect" type="button" onClick={updateUser}
                         >
                             <span>Submit</span>
                         </button>

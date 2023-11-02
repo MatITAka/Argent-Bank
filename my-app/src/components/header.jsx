@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 
+
 function Header(){
 
 
  const dispatch = useDispatch();
+
 
  const isLoggedIn = useSelector((state)=> state.usersReducer.isLoggedIn);
  let userName = useSelector((state)=> state.usersReducer.currentUser.userName);
@@ -30,9 +32,9 @@ function Header(){
      
       <div>
       { isLoggedIn ? ( 
-         <NavLink className="main-nav-item"  to="/">
+         <NavLink className="main-nav-item" to ="/logged">
          <i className="fa fa-user-circle"></i>
-         <span> {userName}</span>
+         <span >{userName}</span>
          
          <span onClick={() => dispatch(logout()) }> Sign Out</span>
          
