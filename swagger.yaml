@@ -229,37 +229,43 @@ definitions:
             id:
               type: string
               description: Account ID
-            accountName:
-              type: string
-              description: Account Name
-            month:
-              type: string
-              format: date-time
-              description: current month
-            transactionId:
+            operationID:
               type: integer
               description: transaction of the account 
-            amount:
+            description:
+              type: string
+              description: description of the transaction
+            date:
+              type: string
+              format: date-time
+              description: current date of transaction
+            balance:
               type: number
               description: Account amount
-            details:
+            amount:
+              type : number
+              description : amount of the operation
+            note:
               type: string
               description: Note for the Transaction
             category:
               type: string
               description: Category ofs the Transaction
+            transaction type: 
+              type: string
+              description : Type of the transaction
               
  
           
   TransactionResponse:
       type: object
       properties:
-        details:
-          type: string
-          description: Note for the Transaction
         category:
           type: string
-          description: Category ofs the Transaction
+          description: category for the Transaction
+        note:
+          type: string
+          description: note of the Transaction
           
 
   User:
@@ -319,12 +325,3 @@ definitions:
     properties:
       userName:
         type: string
-
-
-
-
-
-
-
-
-
