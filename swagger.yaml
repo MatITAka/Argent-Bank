@@ -9,6 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
+
   /user/login:
     post:
       tags:
@@ -33,6 +34,8 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  
+  
   /user/signup:
     post:
       tags:
@@ -57,6 +60,9 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  
+  
+  
   /user/profile:
     post:
       security:
@@ -101,12 +107,161 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+          
+  /user/bankAccount:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Bank Account
+      summary: Retrieve all bank accounts of the user
+      description: Obtain all bank accounts associated with the authenticated user.
+      operationId: getAllUserBankAccounts
+      responses:
+        '200':
+          description: Successfully retrieved all user bank accounts
+          schema:
+                $ref: '#/definitions/BankAccount'
+        '400':
+          description: Bad request, possibly due to invalid input parameters
+        '401':
+          description: Unauthorized, missing or invalid authentication
+        '500':
+          description: Internal server error
+          
+  /user/Transactions/{accountID}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+         - User Bank Account
+      summary: Retrieve the transactions of an account
+      description: Retrieve the transactions of a specific bank account belonging to the authenticated user.
+      parameters:
+        - name: accountID
+          in: path
+          description: Id of the account
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Successfully retrieved the details of the specified bank account
+          schema:
+                $ref: '#/definitions/AccountIdResponse'
+        '400':
+          description: Bad request, possibly due to invalid input parameters
+        '401':
+          description: Unauthorized, missing or invalid authentication
+        '500':
+          description: Internal server error
+          
+          
+  /user/bankAccount/{transaction}:
+    put:
+      security:
+       - Bearer: []
+      tags:
+        - User Bank Account
+      summary: Update a Specific User Transaction
+      description: Update the details of a specific transaction associated with the user's bank account ID.
+      parameters:
+      - name: transaction
+        in: path
+        description: ID of the transaction to update
+        required: true
+        type: integer
+        format: int64 
+          
+      responses:
+       '200':
+         description: Successfully updated the transaction
+         schema:
+               $ref: '#/definitions/TransactionResponse'
+       '400':
+         description: Bad request, possibly due to invalid input parameters
+       '401':
+         description: Unauthorized, missing or invalid authentication
+       '500':
+         description: Internal server error
+
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
+
+  BankAccount:
+     type: object
+     properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items :
+          properties:  
+            id:
+              type: string
+              description: Account ID
+            accountName:
+              type: string
+              description: Account Name
+            balance:
+              type: string
+              description: Balance
+          
+  AccountIdResponse:
+     type: object
+     properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: array
+        items :
+          properties:  
+            id:
+              type: string
+              description: Account ID
+            accountName:
+              type: string
+              description: Account Name
+            month:
+              type: string
+              format: date-time
+              description: current month
+            transactionId:
+              type: integer
+              description: transaction of the account 
+            amount:
+              type: number
+              description: Account amount
+            details:
+              type: string
+              description: Note for the Transaction
+            category:
+              type: string
+              description: Category ofs the Transaction
+              
+ 
+          
+  TransactionResponse:
+      type: object
+      properties:
+        details:
+          type: string
+          description: Note for the Transaction
+        category:
+          type: string
+          description: Category ofs the Transaction
+          
+
   User:
     properties:
       email:
@@ -124,6 +279,8 @@ definitions:
       userName:
         type: string
         description: user public name
+ 
+ 
   Login:
     properties:
       email:
@@ -132,6 +289,8 @@ definitions:
       password:
         type: string
         description: user password
+  
+  
   ApiResponse:
     type: object
     properties:
@@ -146,13 +305,26 @@ definitions:
             type: string
           email:
             type: string
+  
+  
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+  
+  
   UserProfile:
     type: object
     properties:
       userName:
         type: string
+
+
+
+
+
+
+
+
+
