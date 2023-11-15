@@ -9,6 +9,7 @@ servers:
 paths:
   /user/login:
     post:
+    
       tags:
         - User Module
       summary: Login
@@ -160,7 +161,8 @@ paths:
           description: ID of the selected transaction
           required: true
           schema:
-            $ref: '#/components/schemas/Transaction'
+            type: integer
+            format: int64
       responses:
         '200':
           description: Successfully retrieved the details of the specified transaction
@@ -187,7 +189,8 @@ paths:
           description: ID of the transaction to update
           required: true
           schema:
-             $ref: '#/components/schemas/Transaction'
+             type: integer
+             format: int64
       requestBody:
         description: The new details of the transaction to update.
         required: true
@@ -221,7 +224,8 @@ paths:
           description: ID of the transaction to delete
           required: true
           schema:
-             $ref: '#/components/schemas/Transaction'
+            type: integer
+            format: int64
       responses:
         '204':
           description: Successfully deleted the transaction
@@ -344,9 +348,3 @@ components:
         category :
           type : string
           description : category for the transaction
-    Transaction:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Transaction ID 
